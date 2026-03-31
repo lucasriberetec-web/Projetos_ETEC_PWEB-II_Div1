@@ -1,3 +1,17 @@
+<?php
+/*Dentro do Delphi alt+F11 - codigo uses umodulo*/
+require './controle/conexao.php';/*passa a usar a classe conexão*/
+/*isso é como a query do Delphi ou Lazarus*/
+$pdo = Conexao::conectar();/*conecto ao banco de dados*/
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);/*tratar erros de atributos e sql*/
+$sql = "select * from categorias;";/*é igual a propriedade SQL da query do Delphi ou Lazarus*/
+$prp = $pdo->prepare($sql);
+$prp->execute();/*executa a instrução sql que acessará a tabela do banco de dados (Delphi ou Lazarus Open ou ExecSQL)*/
+while ($data = $prp->fetch(PDO::FETCH_ASSOC))
+    {
+        echo $data['catnome'].'<br>';
+    }
+?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">LogoDaLojinha</a>

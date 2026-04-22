@@ -70,3 +70,24 @@ insert into categorias (catnome) values
 ('Saúde'),
 ('Serviços'),
 ('Mais Categorias');
+
+select 
+    proid,
+    pronome,
+    prodescricao,
+    provalorcusto,
+    provalorvenda,
+    proquantidade,
+    prosubid,
+    proativo,
+    subnome,
+    subcatid,
+    subativo,
+    catnome,
+    catativo
+from 
+    produtos,subcategorias,categorias
+where 
+    prosubid = subid
+and
+    subcatid = catid

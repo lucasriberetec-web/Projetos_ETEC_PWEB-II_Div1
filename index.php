@@ -1,10 +1,30 @@
 <?php
-/*declaração de atributos(mesma coisa que variável)*/
-$imagem = 'notebookacer.webp';
-$titulo = 'Notebook Acer';
-$resumo = 'Notebook com processador Intel Core I7 1645U, com 32GB de ram e armazenamento de 2TB. WiFi 6, BlueTooth 5.4 e rede 1Gb';
-$valor = 5999.87;
-$i = 1;
+require './controle/conexao.php';
+$pdo = Conexao::conectar();
+$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+$sql = 
+"select 
+    proid,
+    pronome,
+    prodescricao,
+    provalorcusto,
+    provalorvenda,
+    proquantidade,
+    prosubid,
+    proativo,
+    subnome,
+    subcatid,
+    subativo,
+    catnome,
+    catativo
+from 
+    produtos,subcategorias,categorias
+where 
+    prosubid = subid
+and
+    subcatid = catid";
+$prp = $pdo->prepare($sql);
+$prp->execute();
 ?>
 <!doctype html>
 <html lang="pt-BR">

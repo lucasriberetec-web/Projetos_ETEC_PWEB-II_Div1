@@ -1,16 +1,15 @@
 <?php
 /*Dentro do Delphi alt+F11 - codigo uses umodulo*/
-require './controle/conexao.php';/*passa a usar a classe conexão*/
+//require './controle/conexao.php';/*passa a usar a classe conexão*/
 /*isso é como a query do Delphi ou Lazarus*/
-$pdo = Conexao::conectar();/*conecto ao banco de dados*/
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);/*tratar erros de atributos e sql*/
+//$pdo = Conexao::conectar();/*conecto ao banco de dados*/
+//$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);/*tratar erros de atributos e sql*/
 $sql = "select * from categorias;";/*é igual a propriedade SQL da query do Delphi ou Lazarus*/
 $prp = $pdo->prepare($sql);
 $prp->execute();/*executa a instrução sql que acessará a tabela do banco de dados (Delphi ou Lazarus Open ou ExecSQL)*/
-while ($data = $prp->fetch(PDO::FETCH_ASSOC))
-    {
-        echo $data['catnome'].'<br>';
-    }
+/*while ($data = $prp->fetch(PDO::FETCH_ASSOC)) {
+    echo $data['catnome'] . '<br>';
+}*/
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
@@ -35,12 +34,9 @@ while ($data = $prp->fetch(PDO::FETCH_ASSOC))
                         Categorias
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <?php while ($data = $prp->fetch(PDO::FETCH_ASSOC)) { ?>
+                            <li><a class="dropdown-item" href="listarprodutos.php?op=cat&id=<?php echo $data['catid']; ?>"><?php echo $data['catnome']; ?></a></li>
+                        <?php } ?>
                     </ul>
                 </li>
                 <li class="nav-item">
